@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Effective JavaScript: Frogger</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <div class="canvas-container">
+
+    </div>
+
+    <div class="stats-container">
+        <span class="step-container">
+            Steps:
+            <span class="steps">0</span>
+        </span>
+
+        <span class="score-container">
+            Score:
+            <span class="score">0</span>
+        </span>
+        <br>
+        <br>
+
+        <button id="charSelect">Character select</button><br><br>
+
+        <div id="myModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Choose a character (game will be reset):</p>
+                <img id="charOne" src="images/char-boy.png">
+                <img id="charTwo" src="images/char-cat-girl.png">
+                <img id="charThree" src="images/char-horn-girl.png">
+                <img id="charFour" src="images/char-pink-girl.png">
+                <img id="charFive" src="images/char-princess-girl.png">
+            </div>
+
+        </div>
+
+        <audio controls="controls" loop="loop">
+            <source src="audio/cowboy-music.mp3" type="audio/mp3" />
+        </audio>
+
+    </div>
+
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
+
+</body>
+</html>
