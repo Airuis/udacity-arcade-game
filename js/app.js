@@ -3,7 +3,7 @@
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
-};
+}
 
 // Sounds from http://soundbible.com, play when winning the game, collecting a jewel or getting hit.
 
@@ -36,10 +36,11 @@ const Enemy = function() {
 };
 
 
+
 // Collision detection function; coding obtained from the following SO thread: https://stackoverflow.com/questions/2440377/javascript-collision-detection
 
-function isCollide(a, b) {
-    return !(
+Enemy.prototype.collision = function(a, b) {
+        return !(
         ((a.y + a.height) < (b.y)) ||
         (a.y > (b.y + b.height)) ||
         ((a.x + a.width) < b.x) ||
@@ -67,19 +68,22 @@ Enemy.prototype.update = function(dt) {
         this.speed = getRandomArbitrary(100, 200);
     }
 
-    const lose = isCollide(this, player);
+    const lose = this.collision(this, player);
 
     if (lose === true) {
         audio.play();
-        stepCounter = 0;
-        $('.steps').html(stepCounter);
-        score -= 25;
-        $('.score').html(score);
+        player.steps = 0;
+        $('.steps').html(player.steps);
+        player.score -= 25;
+        $('.score').html(player.score);
         player.x = 200;
         player.y = 400;
     }
 
 };
+
+
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -107,8 +111,9 @@ const Jewel = function() {
     this.height = 50;
 };
 
-function jewelCollide(a, b) {
-    return !(
+
+Jewel.prototype.pickup = function(a,b) {
+        return !(
         ((a.y + a.height) < (b.y)) ||
         (a.y > (b.y + b.height)) ||
         ((a.x + a.width) < b.x) ||
@@ -123,14 +128,13 @@ Jewel.prototype.render = function() {
 
 Jewel.prototype.update = function() {
 
-    const collect = jewelCollide(this, player);
+    const collect = this.pickup(this, player);
 
     if (collect === true) {
-        console.log("Player pos: " + player.y + " Jewel pos: " + this.y);
         grab.play();
         allJewels.splice(allJewels.indexOf(this), 1);
-        score += 50;
-        $('.score').html(score);
+        player.score += 50;
+        $('.score').html(player.score);
     }
 
 
@@ -154,16 +158,18 @@ const Player = function() {
     this.y = 400;
     this.width = 50;
     this.height = 50;
+    this.steps = 0;
+    this.score = 0;
 };
 
 
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 400;
-    stepCounter = 0;
-    score = 0;
-    $('.steps').html(stepCounter);
-    $('.score').html(score);
+    this.steps = 0;
+    this.score = 0;
+    $('.steps').html(this.steps);
+    $('.score').html(this.score);
 };
 
 
@@ -172,7 +178,7 @@ Player.prototype.update = function(dt) {
 
     if(this.y <= 0){
         victory.play();
-        alert(`Congratulations! You made it past the creepy bugs and to the water. Awesome job! It took you ${stepCounter} steps, and your final score was ${score}!`);
+        alert(`Congratulations! You made it past the creepy bugs and to the water. Awesome job! It took you ${this.steps} steps, and your final score was ${this.score}!`);
         this.reset();
         allJewels.length = 0;
         jewel1.reset();
@@ -180,7 +186,7 @@ Player.prototype.update = function(dt) {
         jewel3.reset();
         jewel4.reset();
         jewel5.reset();
-    };
+    }
 
 
 };
@@ -191,19 +197,16 @@ Player.prototype.render = function() {
 };
 
 
-let stepCounter = 0;
-
-
 Player.prototype.handleInput = function(x) {
-    stepCounter += 1;
-    $('.steps').html(stepCounter);
+    this.steps += 1;
+    $('.steps').html(this.steps);
     if (x === 'left' && this.x > 0) {
         this.x = this.x - 40;
     } else if (x === 'right' && this.x != 400) {
         this.x = this.x + 40;
-    } else if (x === 'up' && this.y != 0) {
+    } else if (x === 'up' && this.y !== 0) {
         this.y = this.y - 40;
-    } else if (x === 'down' && this.y != 400) {
+    } else if (x === 'down' && this.y !== 400) {
         this.y = this.y + 40;
     }
 };
@@ -353,5 +356,5 @@ window.onclick = function(event) {
     if (event.target === modal) {
         $(".modal").css( "display", "none" );
     }
-}
+};
 

@@ -7,7 +7,9 @@
 
 ## Instructions
 
-A simple game in which you try to move your player to the water squares without being hit by the crossing bugs. Along the way, you can grab jewels to increase your score, but be careful, because being hit by a bug also lowers your score!
+Load the game by opening the index.html file in your browser of choice.
+
+This is a simple game, in which you try to move your player to the water squares without being hit by the crossing bugs. Along the way, you can grab jewels to increase your score, but be careful, because being hit by a bug also lowers your score!
 
 You can choose another character by hitting the "Character select" button, and play music by hitting the play button at the bottom of the page. You can also pause the music and reduce the volume or mute it using the volume slider to the right of the play button.
 
